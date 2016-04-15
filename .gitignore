@@ -1,4 +1,6 @@
 # Thank you : https://github.com/github/gitignore/blob/master/Node.gitignore
+/lib/
+/build/
 
 # Logs
 logs
