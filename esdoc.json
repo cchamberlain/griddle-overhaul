@@ -8,5 +8,5 @@
   "plugins": [
     {"name": "esdoc-es7-plugin"}
   ],
-  "title": "griddle-overhaul"
+  "title": "griddle-overhaul-react-redux"
 }

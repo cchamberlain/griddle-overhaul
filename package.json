@@ -1,6 +1,6 @@
 {
-  "name": "griddle-overhaul",
-  "version": "1.0.0",
+  "name": "griddle-overhaul-react-redux",
+  "version": "0.1.0",
   "description": "A fast and flexible grid component for React",
   "keywords": [
     "react-component",
@@ -48,15 +48,18 @@
     "webpack-dev-server": "*"
   },
   "dependencies": {
-    "griddle-overhaul-connector": "*",
+    "griddle-overhaul-react": "*",
+    "griddle-overhaul-redux": "*",
     "griddle-overhaul-core": "*",
-    "griddle-overhaul-render": "*",
     "lodash.assign": "^3.2.0"
   },
   "peerDependencies": {
     "react": "^0.14.0 || ^15.0.0"
   },
-  "repository": "https://github.com/cchamberlain/griddle-overhaul",
   "author": "Griddle",
-  "license": "MIT"
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cchamberlain/griddle-overhaul.git"
+  }
 }
