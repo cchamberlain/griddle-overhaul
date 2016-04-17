@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react'
-//import GriddleProvider from './components/GriddleProvider'
+import { connect } from 'react-redux'
+import { assert } from 'chai'
 import { Griddle, DefaultModules } from 'griddle-overhaul-react'
 const ROOT_STATE_KEY = 'griddle'
 
@@ -64,8 +65,6 @@ const bisectState = (state, id) => {
 
 
 
-
-
 export const connectGriddle = GriddleComponent => connect(mapGriddleStateToProps)(GriddleComponent)
 
-//export { GriddleProvider }
+export default connectGriddle(ReduxGriddle)
