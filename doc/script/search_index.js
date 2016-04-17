@@ -1,11 +1,5 @@
 window.esdocSearchIndex = [
   [
-    "griddle-overhaul-react-redux~connectgriddle",
-    "variable/index.html#static-variable-connectGriddle",
-    "<span>connectGriddle</span> <span class=\"search-result-import-path\">griddle-overhaul-react-redux</span>",
-    "variable"
-  ],
-  [
     "builtinexternal/ecmascriptexternal.js~array",
     "external/index.html",
     "BuiltinExternal/ECMAScriptExternal.js~Array",
@@ -334,11 +328,5 @@ window.esdocSearchIndex = [
     "external/index.html",
     "BuiltinExternal/WebAPIExternal.js~XMLHttpRequest",
     "external"
-  ],
-  [
-    "lib/index.js",
-    "file/lib/index.js.html",
-    "lib/index.js",
-    "file"
   ]
 ]

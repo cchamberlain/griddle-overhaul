@@ -1,180 +1,6 @@
 [
   {
-    "__docId__": 0,
-    "kind": "file",
-    "static": true,
-    "variation": null,
-    "name": "lib/index.js",
-    "memberof": null,
-    "longname": "lib/index.js",
-    "access": null,
-    "description": null,
-    "lineNumber": 1,
-    "content": "import React, { Component, PropTypes } from 'react'\r\n//import GriddleProvider from './components/GriddleProvider'\r\nimport { Griddle, DefaultModules } from 'griddle-overhaul-react'\r\nconst ROOT_STATE_KEY = 'griddle'\r\n\r\n\r\nclass ReduxGriddle extends Component {\r\n  static propTypes =  { id: PropTypes.string.isRequired\r\n                      , dataKey: PropTypes.string.isRequired\r\n                      };\r\n  static defaultProps = { dataKey: 'visibleData' };\r\n\r\n  componentWillMount() { this.loadData() }\r\n  componentWillReceiveProps(nextProps) {\r\n    if(nextProps.data !== this.props.data)\r\n      this.loadData(nextProps)\r\n  }\r\n\r\n  loadData = () => {\r\n    const { dispatch, data, columns, ignoredColumns, children } = this.props\r\n    const allColumns = data && data.length > 0 ? Object.keys(data[0]) : []\r\n    const properties = PropertyHelper.propertiesToJS( { rowProperties: children\r\n                                                      , defaultColumns: columns\r\n                                                      , ignoredColumns\r\n                                                      , allColumns\r\n                                                      } )\r\n\r\n    dispatch(initializeGrid(properties))\r\n    if(props.data)\r\n      dispatch(loadData(data))\r\n  };\r\n\r\n  render() {\r\n    const { actionCreators, dataKey, data, columns, ignoredColumns, children } = this.props\r\n    return (\r\n      <Griddle\r\n        {...actionCreators}\r\n        dataKey={dataKey}\r\n        data={griddle[dataKey]}\r\n        columns={columns}\r\n        ignoredColumns={ignoredColumns}\r\n        children={children}\r\n      />\r\n    )\r\n  }\r\n}\r\n\r\n\r\nconst mapGriddleStateToProps = (state, ownProps) => {\r\n  const { id } = ownProps\r\n  const { data, columns, ignoredColumns, children } = bisectState(state, id)\r\n  const actionCreators = bindActionCreators(actions, dispatch)\r\n  return { data, columns, ignoredColumns, children }\r\n}\r\n\r\nconst bisectState = (state, id) => {\r\n  if(process.env.NODE_ENV !== 'production') assert.ok(state, 'state is required')\r\n  const griddleRoot = state[ROOT_STATE_KEY]\r\n  if(process.env.NODE_ENV !== 'production') assert.ok(griddleRoot, `'${ROOT_STATE_KEY}' state must exist in redux (should import configured reducers from griddle-overhaul-redux into combineReducers as a top-level 'griddle' node)`)\r\n  const griddleState = griddleRoot[id]\r\n  if(process.env.NODE_ENV !== 'production') assert.ok(griddleState, `Griddle component with id '${id}' is required in redux state. Check your configuration.`)\r\n  return griddleState\r\n}\r\n\r\n\r\n\r\n\r\n\r\nexport const connectGriddle = GriddleComponent => connect(mapGriddleStateToProps)(GriddleComponent)\r\n\r\n//export { GriddleProvider }\r\n"
-  },
-  {
     "__docId__": 1,
-    "kind": "variable",
-    "static": true,
-    "variation": null,
-    "name": "ROOT_STATE_KEY",
-    "memberof": "lib/index.js",
-    "longname": "lib/index.js~ROOT_STATE_KEY",
-    "access": null,
-    "export": false,
-    "importPath": "griddle-overhaul-react-redux",
-    "importStyle": null,
-    "description": null,
-    "lineNumber": 4,
-    "undocument": true,
-    "type": {
-      "types": [
-        "string"
-      ]
-    }
-  },
-  {
-    "__docId__": 2,
-    "kind": "class",
-    "static": true,
-    "variation": null,
-    "name": "ReduxGriddle",
-    "memberof": "lib/index.js",
-    "longname": "lib/index.js~ReduxGriddle",
-    "access": null,
-    "export": false,
-    "importPath": "griddle-overhaul-react-redux",
-    "importStyle": null,
-    "description": null,
-    "lineNumber": 7,
-    "undocument": true,
-    "interface": false,
-    "extends": [
-      "react~Component"
-    ]
-  },
-  {
-    "__docId__": 3,
-    "kind": "method",
-    "static": false,
-    "variation": null,
-    "name": "componentWillMount",
-    "memberof": "lib/index.js~ReduxGriddle",
-    "longname": "lib/index.js~ReduxGriddle#componentWillMount",
-    "access": null,
-    "description": null,
-    "lineNumber": 13,
-    "undocument": true,
-    "params": [],
-    "generator": false
-  },
-  {
-    "__docId__": 4,
-    "kind": "method",
-    "static": false,
-    "variation": null,
-    "name": "componentWillReceiveProps",
-    "memberof": "lib/index.js~ReduxGriddle",
-    "longname": "lib/index.js~ReduxGriddle#componentWillReceiveProps",
-    "access": null,
-    "description": null,
-    "lineNumber": 14,
-    "undocument": true,
-    "params": [
-      {
-        "name": "nextProps",
-        "types": [
-          "*"
-        ]
-      }
-    ],
-    "generator": false
-  },
-  {
-    "__docId__": 5,
-    "kind": "method",
-    "static": false,
-    "variation": null,
-    "name": "render",
-    "memberof": "lib/index.js~ReduxGriddle",
-    "longname": "lib/index.js~ReduxGriddle#render",
-    "access": null,
-    "description": null,
-    "lineNumber": 33,
-    "undocument": true,
-    "params": [],
-    "return": {
-      "types": [
-        "*"
-      ]
-    },
-    "generator": false
-  },
-  {
-    "__docId__": 6,
-    "kind": "variable",
-    "static": true,
-    "variation": null,
-    "name": "mapGriddleStateToProps",
-    "memberof": "lib/index.js",
-    "longname": "lib/index.js~mapGriddleStateToProps",
-    "access": null,
-    "export": false,
-    "importPath": "griddle-overhaul-react-redux",
-    "importStyle": null,
-    "description": null,
-    "lineNumber": 49,
-    "undocument": true,
-    "type": {
-      "types": [
-        "*"
-      ]
-    }
-  },
-  {
-    "__docId__": 7,
-    "kind": "variable",
-    "static": true,
-    "variation": null,
-    "name": "bisectState",
-    "memberof": "lib/index.js",
-    "longname": "lib/index.js~bisectState",
-    "access": null,
-    "export": false,
-    "importPath": "griddle-overhaul-react-redux",
-    "importStyle": null,
-    "description": null,
-    "lineNumber": 56,
-    "undocument": true,
-    "type": {
-      "types": [
-        "*"
-      ]
-    }
-  },
-  {
-    "__docId__": 8,
-    "kind": "variable",
-    "static": true,
-    "variation": null,
-    "name": "connectGriddle",
-    "memberof": "lib/index.js",
-    "longname": "lib/index.js~connectGriddle",
-    "access": null,
-    "export": true,
-    "importPath": "griddle-overhaul-react-redux",
-    "importStyle": "{connectGriddle}",
-    "description": null,
-    "lineNumber": 69,
-    "undocument": true,
-    "type": {
-      "types": [
-        "*"
-      ]
-    }
-  },
-  {
-    "__docId__": 10,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -187,7 +13,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 11,
+    "__docId__": 2,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -200,7 +26,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 12,
+    "__docId__": 3,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -213,7 +39,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 13,
+    "__docId__": 4,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -226,7 +52,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 14,
+    "__docId__": 5,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -239,7 +65,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 15,
+    "__docId__": 6,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -252,7 +78,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 16,
+    "__docId__": 7,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -265,7 +91,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 17,
+    "__docId__": 8,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -278,7 +104,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 18,
+    "__docId__": 9,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -291,7 +117,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 19,
+    "__docId__": 10,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -304,7 +130,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 20,
+    "__docId__": 11,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -317,7 +143,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 21,
+    "__docId__": 12,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -330,7 +156,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 22,
+    "__docId__": 13,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -343,7 +169,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 23,
+    "__docId__": 14,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -356,7 +182,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 24,
+    "__docId__": 15,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -369,7 +195,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 25,
+    "__docId__": 16,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -382,7 +208,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 26,
+    "__docId__": 17,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -395,7 +221,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 27,
+    "__docId__": 18,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -408,7 +234,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 28,
+    "__docId__": 19,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -421,7 +247,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 29,
+    "__docId__": 20,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -434,7 +260,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 30,
+    "__docId__": 21,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -447,7 +273,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 31,
+    "__docId__": 22,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -460,7 +286,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 32,
+    "__docId__": 23,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -473,7 +299,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 33,
+    "__docId__": 24,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -486,7 +312,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 34,
+    "__docId__": 25,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -499,7 +325,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 35,
+    "__docId__": 26,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -512,7 +338,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 36,
+    "__docId__": 27,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -525,7 +351,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 37,
+    "__docId__": 28,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -538,7 +364,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 38,
+    "__docId__": 29,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -551,7 +377,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 39,
+    "__docId__": 30,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -564,7 +390,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 40,
+    "__docId__": 31,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -577,7 +403,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 41,
+    "__docId__": 32,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -590,7 +416,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 42,
+    "__docId__": 33,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -603,7 +429,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 43,
+    "__docId__": 34,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -616,7 +442,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 44,
+    "__docId__": 35,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -629,7 +455,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 45,
+    "__docId__": 36,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -642,7 +468,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 46,
+    "__docId__": 37,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -655,7 +481,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 47,
+    "__docId__": 38,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -668,7 +494,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 48,
+    "__docId__": 39,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -681,7 +507,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 49,
+    "__docId__": 40,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -694,7 +520,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 50,
+    "__docId__": 41,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -707,7 +533,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 51,
+    "__docId__": 42,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -720,7 +546,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 52,
+    "__docId__": 43,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -733,7 +559,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 53,
+    "__docId__": 44,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -746,7 +572,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 54,
+    "__docId__": 45,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -759,7 +585,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 55,
+    "__docId__": 46,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -772,7 +598,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 56,
+    "__docId__": 47,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -785,7 +611,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 58,
+    "__docId__": 49,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -798,7 +624,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 59,
+    "__docId__": 50,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -811,7 +637,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 60,
+    "__docId__": 51,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -824,7 +650,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 61,
+    "__docId__": 52,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -837,7 +663,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 62,
+    "__docId__": 53,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -850,7 +676,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 63,
+    "__docId__": 54,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -863,7 +689,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 64,
+    "__docId__": 55,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -876,7 +702,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 65,
+    "__docId__": 56,
     "kind": "external",
     "static": true,
     "variation": null,
